@@ -145,3 +145,87 @@ input[name="tab"] { display: none; }
   background: var(--bage-bg-color);
   color: var(--bg-color);
 }
+
+/* ---- Модальное окно ---- */
+.modal {
+  display: none;                 /* скрыто по умолчанию */
+  position: fixed;
+  inset: 0;                      /* top/right/bottom/left = 0 */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.open {
+  display: flex;                 /* показать */
+}
+
+.modal-box {
+  background: var(--card-bg-color);
+  color: var(--card-color);
+  border-radius: 12px;
+  padding: 24px;
+  width: min(90vw, 400px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+.modal-box h2 {
+  margin: 0 0 16px;
+  color: var(--card-color);
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--card-color);
+}
+
+.modal-close:hover {
+  color: var(--bage-bg-color);
+}
+
+#modal-slot {
+  margin-bottom: 16px;
+}
+
+#modal-slot input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid var(--card-color);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-btn {
+  padding: 10px 18px;
+  border: none;
+  background: var(--bage-bg-color);
+  color: var(--bg-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.modal-btn:hover {
+  background: var(--card-color);
+}
+
+input {
+  margin: 5px;
+  border: 10px;
+  padding: 10px;
+}
