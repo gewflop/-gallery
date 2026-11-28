@@ -99,3 +99,49 @@ h1 {
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
+/* ---- Вкладки ---- */
+input[name="tab"] { display: none; }
+
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--card-bg-color);
+}
+
+.tab-bar label {
+  padding: 8px 16px;
+  background: var(--card-bg-color);
+  color: var(--card-color);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+
+.tab-bar label:hover {
+  background: var(--bage-bg-color);
+  color: var(--bg-color);
+}
+
+/* скрываем весь контент */
+.tab-content { display: none; }
+
+/* показываем нужный */
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+/* подсветка активной вкладки */
+#tab1:checked ~ .tab-bar label[for="tab1"],
+#tab2:checked ~ .tab-bar label[for="tab2"],
+#tab3:checked ~ .tab-bar label[for="tab3"],
+#tab4:checked ~ .tab-bar label[for="tab4"] {
+  background: var(--bage-bg-color);
+  color: var(--bg-color);
+}
