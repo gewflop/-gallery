@@ -76,7 +76,7 @@ h1 {
   padding: 10px 15px;
   border: none;
   background: var(--bage-bg-color);
-  color: var(--card-bg-color);
+  color: var(--color);
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
@@ -92,7 +92,7 @@ h1 {
   top: 10px;
   right: 10px;
   background: var(--bage-bg-color);
-  color: var(--bg-color);
+  color: var(--color);
   font-size: 12px;
   font-weight: bold;
   padding: 5px 8px;
@@ -226,6 +226,133 @@ input[name="tab"] { display: none; }
 
 input {
   margin: 5px;
-  border: 10px;
-  padding: 10px;
+}
+
+.winter_badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--bage-bg-color);
+  color: var(--color);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.winter {
+  --bg-color: #CCDBDC;
+  --card-bg-color: #9AD1D4;
+  --color: #003249;
+  --bage-bg-color: #80CED7;
+  --card-color: #007EA7;
+}
+
+/* ---- Гирлянда: первый прототип, span-лампочки ---- */
+.header {
+  position: relative;
+  padding-top: 80px;          /* место под гирлянду */
+}
+
+.garland {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+/* провод — горизонтальная линия по центру гирлянды */
+.garland::before {
+  content: "";
+  position: absolute;
+  top: 35px;                  /* провод ровно посередине высоты */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2f4f4f;
+  border-radius: 2px;
+}
+
+/* лампочка — общий вид */
+.garland span {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 18px;
+  border-radius: 50% 50% 45% 45%;
+  background: #ffd700;
+  box-shadow:
+    0 0 6px 2px rgba(255, 215, 0, 0.8),
+    0 0 14px 4px rgba(255, 215, 0, 0.5);
+  animation: blink 1.4s infinite ease-in-out;
+}
+
+/* ПАТРОН: маленький прямоугольник, примыкающий к проводу.
+   По умолчанию (класс .down) — патрон сверху лампочки, лампа снизу провода. */
+.garland span::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 10px;
+  background: #2f4f4f;
+  border-radius: 2px;
+}
+
+/* --- ЧЕРЕДОВАНИЕ: нечётные — СВЕРХУ провода, чётные — СНИЗУ --- */
+
+/* НЕЧЁТНЫЕ (1,3,5…): лампочка выше провода.
+   Провод на top:35px. Патрон идёт вниз к проводу, лампа над ним. */
+.garland span:nth-child(odd) {
+  margin-top: 0;              /* верх контейнера */
+  margin-bottom: auto;
+}
+.garland span:nth-child(odd)::before {
+  top: 24px;                  /* патрон от 24px до 34px — упирается в провод (35px) */
+}
+/* сама лампа у нечётных — вверху, патрон снизу */
+.garland span:nth-child(odd) {
+  /* лампа занимает 0..18px, патрон 24..34px — между ними зазор 6px,
+     чтобы визуально «ножка» шла от лампы к проводу */
+}
+
+/* ЧЁТНЫЕ (2,4,6…): лампочка ниже провода.
+   Патрон сверху (у провода), лампа снизу. */
+.garland span:nth-child(even) {
+  margin-top: 44px;           /* опускаем всю лампочку ниже провода */
+}
+.garland span:nth-child(even)::before {
+  top: -10px;                 /* патрон от -10px до 0 — упирается в провод (35px) */
+}
+
+/* цвета */
+.garland span:nth-child(3n+1) {
+  background: #ff4d4d;
+  box-shadow: 0 0 6px 2px rgba(255,77,77,.8), 0 0 14px 4px rgba(255,77,77,.5);
+}
+.garland span:nth-child(3n+2) {
+  background: #4dff88;
+  box-shadow: 0 0 6px 2px rgba(77,255,136,.8), 0 0 14px 4px rgba(77,255,136,.5);
+}
+.garland span:nth-child(3n) {
+  background: #4da6ff;
+  box-shadow: 0 0 6px 2px rgba(77,166,255,.8), 0 0 14px 4px rgba(77,166,255,.5);
+}
+
+/* задержки */
+.garland span:nth-child(2n) { animation-delay: 0.2s; }
+.garland span:nth-child(3n) { animation-delay: 0.4s; }
+.garland span:nth-child(4n) { animation-delay: 0.6s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
 }
